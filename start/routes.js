@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /*
 |--------------------------------------------------------------------------
@@ -13,15 +13,17 @@
 |
 */
 
-const Route = use('Route')
+const Route = use("Route");
 
-Route.get('/', 'SiteController.index')
-Route.get('/login','SiteController.login')
+Route.get("/", "SiteController.index");
+Route.get("/login", "SiteController.login");
 //get参数
-Route.get('/posts','PostController.index')
+Route.get("/posts", "PostController.index");
 //路由参数
-Route.get('/posts/:id','PostController.show')
+Route.get("/posts/:id", "PostController.show");
 
+//admin接口
+Route.get("/admin/api/index", "Admin/SiteController.index");
 
 // Uncomment the following code to test with mongodb
 
