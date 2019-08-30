@@ -24,6 +24,7 @@ Route.get("/posts/:id", "PostController.show");
 
 //admin接口
 Route.get("/admin/api/index", "Admin/SiteController.index");
+Route.resource('/admin/api/posts', 'Admin/PostController')
 
 // Uncomment the following code to test with mongodb
 

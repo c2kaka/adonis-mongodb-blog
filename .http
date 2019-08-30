@@ -2,3 +2,28 @@
 
 ###
 GET {{uri}}index
+
+###
+GET {{uri}}posts
+
+###
+GET {{uri}}posts/5d67378bfebbd1044cbe35f8
+
+###
+POST {{uri}}posts
+Content-Type: application/json
+
+{
+    "title": "新增博客3"
+}
+
+###
+PATCH {{uri}}posts/5d688eb02db91b24181f5fdb
+Content-Type: application/json
+
+{
+    "title": "修改博客3"
+}
+
+###
+DELETE {{uri}}posts/5d688ead2db91b24181f5fda
