@@ -1,6 +1,6 @@
-'use strict'
+"use strict";
 
-const Post = use('App/Models/Post');
+const Post = use("App/Models/Post");
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -19,8 +19,8 @@ class PostController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
-    return await Post.query().fetch();
+  async index({ request, response, view }) {
+    return await Post.query().paginate(1, 10);
   }
 
   /**
@@ -32,8 +32,7 @@ class PostController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
-  }
+  async create({ request, response, view }) {}
 
   /**
    * Create/save a new post.
@@ -43,9 +42,9 @@ class PostController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
-    const data = request.only(['title']);
-    const model = new Post;
+  async store({ request, response }) {
+    const data = request.only(["title"]);
+    const model = new Post();
     model.fill(data);
     await model.save();
     return model;
@@ -60,7 +59,7 @@ class PostController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show({ params, request, response, view }) {
     return await Post.find(params.id);
   }
 
@@ -73,8 +72,7 @@ class PostController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
-  }
+  async edit({ params, request, response, view }) {}
 
   /**
    * Update post details.
@@ -84,8 +82,8 @@ class PostController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
-    const data = request.only(['title']);
+  async update({ params, request, response }) {
+    const data = request.all();
     const model = await Post.find(params.id);
     model.merge(data);
     await model.save();
@@ -100,13 +98,47 @@ class PostController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({ params, request, response }) {
     const model = await Post.find(params.id);
     await model.delete();
     return {
       success: true
-    }
+    };
+  }
+
+  async grid() {
+    return {
+      fields: {
+        _id: { label: "ID" },
+        title: { label: "标题" },
+        created_at: { label: "创建时间", type: "datetime" },
+        updated_at: { label: "更新 时间", type: "datetime" }
+      }
+    };
+  }
+
+  async form(){
+    return {
+      fields: {
+        title: { label: "标题" },
+        image: { label: "图片" },
+        body: { label: "详情", type: "html" }
+      }
+    }; 
+  }
+
+  async view(){
+    return {
+      fields: {
+        _id: { label: "ID" },
+        title: { label: "标题" },
+        image: { label: "图片" },
+        body: { label: "详情", type: "html" },
+        created_at: { label: "创建时间", type: "datetime" },
+        updated_at: { label: "更新 时间", type: "datetime" }
+      }
+    };
   }
 }
 
-module.exports = PostController
+module.exports = PostController;

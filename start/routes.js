@@ -24,6 +24,10 @@ Route.get("/posts/:id", "PostController.show");
 
 //admin接口
 Route.get("/admin/api/index", "Admin/SiteController.index");
+Route.get("/admin/api/site", "Admin/SiteController.site");
+Route.get('/admin/api/posts/grid', 'Admin/PostController.grid');
+Route.get('/admin/api/posts/form/:id?', 'Admin/PostController.form');
+Route.get('/admin/api/posts/view', 'Admin/PostController.view');
 Route.resource('/admin/api/posts', 'Admin/PostController')
 
 // Uncomment the following code to test with mongodb
